@@ -1,0 +1,4 @@
+*.o
+*.dep.mk
+deps
+tests/unittest

@@ -1,0 +1,41 @@
+no_file.ini:
+no_file.ini: n = 0
+no_file.ini: error at line 0: couldn't open file
+------
+normal.ini:
+[section1] "one" = "This is a test"
+[section1] "two" = "1234"
+[section 2] "happy" = "4"
+[section 2] "sad" = ""
+[comment_test] "test1" = "1;2;3"
+[comment_test] "test2" = "2;3;4;this won't be a comment, needs whitespace before ';'"
+[comment_test] "test;3" = "345"
+[comment_test] "test4" = "4#5#6"
+[comment_test] "#test5" = "567"
+[comment_test] "# test6" = "678"
+normal.ini: n = 10
+------
+bad_section.ini:
+[section1] "name1" = "value1"
+bad_section.ini: n = 11
+bad_section.ini: error at line 3: unclosed section header
+------
+bad_comment.ini:
+bad_comment.ini: n = 0
+bad_comment.ini: error at line 1: missing assignment characater
+------
+user_error.ini:
+[section] "a" = "b"
+[section] "user" = "parse_error"
+[section] "c" = "d"
+user_error.ini: n = 14
+------
+bom.ini:
+[bom_section] "bom_name" = "bom_value"
+[bom_section] "key“" = "value“"
+bom.ini: n = 16
+------
+colon.ini:
+colon.ini: n = 0
+colon.ini: error at line 2: missing assignment characater
+------

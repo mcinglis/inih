@@ -86,8 +86,9 @@ ini_parse_file( FILE * const file,
 {
     REQUIRE( file != NULL, callback != NULL );
 
-    char line_buf[ INI_MAX_LINE_LEN + 1 ]       = { 0 };
+    char line_buf[ INI_MAX_LINE_LEN + 1 ]   = { 0 };
     char section[ INI_MAX_SECTION_LEN + 1 ] = { 0 };
+    bool in_section = false;
 
     // Step through file line by line:
     int lineno = 0;
@@ -110,6 +111,7 @@ ini_parse_file( FILE * const file,
             continue;
         } else if ( line[ 0 ] == '[' ) {
             // We're parsing a section header line:
+            in_section = true;
             char * const end = strchr( line + 1, ']' );
             if ( end == NULL ) {
                 return ( IniError ){ .desc = "unclosed section header",
@@ -134,7 +136,8 @@ ini_parse_file( FILE * const file,
             rstrip( key );
             rstrip( value );
             // Finally call the callback with this key and value:
-            if ( callback( data, section, key, value ) == false ) {
+            if ( callback( data, in_section ? section : NULL,
+                           key, value ) == false ) {
                 return ( IniError ){ .desc = "callback failed",
                                      .line = lineno };
             }

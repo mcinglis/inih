@@ -46,8 +46,7 @@ objects: $(objects)
 .PHONY: tests
 tests: $(tests)
 
-$(tests): ini.o \
-          $(DEPS_DIR)/libmacro/require.o
+$(tests): ini.o
 
 .PHONY: clean
 clean:

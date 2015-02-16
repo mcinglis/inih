@@ -11,7 +11,7 @@
 #include <string.h>
 
 #include <libtypes/types.h>
-#include <libmacro/require.h>
+#include <libmacro/assert.h>
 
 #include "ini.h"
 
@@ -21,7 +21,7 @@ static
 char *
 rstrip( char * const s )
 {
-    REQUIRE( s != NULL );
+    ASSERT( s != NULL );
 
     char * p = s + strlen( s );
     while ( p > s && isspace( ( unsigned char )( *--p ) ) ) {
@@ -36,7 +36,7 @@ static
 char *
 lskip( char * const s )
 {
-    REQUIRE( s != NULL );
+    ASSERT( s != NULL );
 
     size_t i = 0;
     while ( isspace( s[ i ] ) ) {
@@ -53,7 +53,7 @@ strncpy0( char * const dest,
           char const * const src,
           size_t const size )
 {
-    REQUIRE( dest != NULL, src != NULL );
+    ASSERT( dest != NULL, src != NULL );
 
     strncpy( dest, src, size );
     dest[ size - 1 ] = '\0';
@@ -65,7 +65,7 @@ static
 void
 strip_comment( char * const line )
 {
-    REQUIRE( line != NULL );
+    ASSERT( line != NULL );
 
     for ( size_t i = 1; line[ i ] != '\0'; i++ ) {
         if ( line[ i ] == ';' && isspace( line[ i - 1 ] ) ) {
@@ -84,7 +84,7 @@ ini_parse_file( FILE * const file,
                                            char const * value ),
                 void * const data )
 {
-    REQUIRE( file != NULL, callback != NULL );
+    ASSERT( file != NULL, callback != NULL );
 
     char line_buf[ INI_MAX_LINE_LEN + 1 ]   = { 0 };
     char section[ INI_MAX_SECTION_LEN + 1 ] = { 0 };
@@ -157,7 +157,7 @@ ini_parse( char const * const filename,
                                       char const * value ),
            void * const data )
 {
-    REQUIRE( filename != NULL, callback != NULL );
+    ASSERT( filename != NULL, callback != NULL );
 
     FILE * const file = fopen(filename, "r");
     if ( file == NULL ) {

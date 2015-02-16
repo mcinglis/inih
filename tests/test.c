@@ -54,3 +54,4 @@ main( void )
     parse( "bom.ini" );
     parse( "colon.ini" );
 }
+

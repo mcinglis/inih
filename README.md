@@ -25,7 +25,7 @@ There's nothing magic to what Puck does, so if you would prefer, you can set up 
 
 **Copyright (c) 2009 Brush Technology <http://brush.co.nz/>:**
 
-- commit `c407ae1` (initial commit based on version from <https://code.google.com/p/inih/> as of 2015-02-03)
+- commit `c407ae1` (initial commit based on version from <https://code.google.com/p/inih/> on 2015-02-03)
 
 **Copyright (c) 2015 Positronic Manufacturing <http://positronicsolar.com.au/>:**
 

@@ -1,9 +1,16 @@
 
+// parts copyright (c) 2009 Brush Technology
+//                          <http://brush.co.nz/>
+// parts copyright (c) 2015 Positronic Manufacturing
+//                          <http://positronicsolar.com.au/>
+
+
 // Run these tests by doing something like:
 //
-//     $ diff stdout_expected.txt <(./unittest)
+//     $ diff test_expected.txt <(./test)
 //
-// The tests pass if there was no diff output.
+// Where 'tests_expected.txt' contains the stdout you would expect from the
+// program, including success and error messages.
 
 #include <stdio.h>
 #include <stdlib.h>

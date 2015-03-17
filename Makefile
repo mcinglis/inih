@@ -18,10 +18,11 @@ cflags_warnings := -Wall -Wextra -Wpedantic \
 
 CFLAGS ?= $(cflags_std) -g $(cflags_warnings)
 
-sources := $(wildcard *.c) $(wildcard tests/*.c)
+sources := $(wildcard *.c)
 objects := $(sources:.c=.o)
-tests   := tests/test
 mkdeps  := $(objects:.o=.dep.mk)
+
+test_binaries := $(basename $(wildcard tests/*.c))
 
 
 ##############################
@@ -32,28 +33,31 @@ mkdeps  := $(objects:.o=.dep.mk)
 all: objects tests
 
 .PHONY: fast
-fast: CPPFLAGS += -DNDEBUG -DNO_ASSERT -DNO_REQUIRE -DNO_DEBUG
+fast: CPPFLAGS += -DNDEBUG
 fast: CFLAGS = $(cflags_std) -O3 $(cflags_warnings)
 fast: all
-
-.PHONY: test
-test: tests
-	./tests/run.bash
 
 .PHONY: objects
 objects: $(objects)
 
 .PHONY: tests
-tests: $(tests)
+tests: $(test_binaries)
 
-$(tests): ini.o
+.PHONY: test
+test: tests
+	./tests/run.bash
 
 .PHONY: clean
 clean:
-	rm -rf $(objects) $(mkdeps)
+	rm -rf $(objects) $(test_binaries) $(mkdeps)
+
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) -MMD -MF "$(@:.o=.dep.mk)" -c $< -o $@
+
+
+$(test_binaries): ini.o
+
 
 -include $(mkdeps)
 
